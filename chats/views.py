@@ -3,6 +3,9 @@ from django.shortcuts import render
 from chats.models import Chat
 
 
+def ui(request):
+    return render(request, 'ui.html')
+
 def home(request):
     return render(request, 'index.html')
 
