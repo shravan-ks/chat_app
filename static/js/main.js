@@ -1,5 +1,3 @@
-// $(".messages").animate({ scrollTop: $(document).height() }, "fast");
-
 $("#msg-list-div").animate({ scrollTop: $('#msg-list-div').prop("scrollHeight")}, 1000);
 
 $('#chat-form').on('submit', function(event){
@@ -132,29 +130,29 @@ $(document).on('click', '.emoji', function(e){
 
 
 
-// function emoji_picker(){
-//     $(".emoji-picks").remove();
-//     $.getJSON("emojis.json", function(json) {
-//         show_emoji(json)
-//     });
-// }
+function emoji_picker(){
+    $(".emoji-picks").remove();
+    $.getJSON("/static/js/emojis.json", function(json) {
+        show_emoji(json)
+    });
+}
 
 
 
-// function show_emoji(data){
-//     Object.values(data).slice(0,500).forEach(element => {
-//         const root = document.getElementById('modal-body');
-//         var h = document.createElement("span");
-//         h.className = 'emoji-picks'
-//         var t = document.createTextNode(element.char);
-//         h.appendChild(t);
-//         root.appendChild(h);
-//         });
-// }
-//
-// $(document).on('click', '.emoji-picks', function(e){
-//     $('.user-message').val($('.user-message').val() +""+ $(this).text());
-//     $('#myModal').modal('hide');
-// });
-//
+function show_emoji(data){
+    Object.values(data).slice(0,500).forEach(element => {
+        const root = document.getElementById('modal-body');
+        var h = document.createElement("span");
+        h.className = 'emoji-picks'
+        var t = document.createTextNode(element.char);
+        h.appendChild(t);
+        root.appendChild(h);
+        });
+}
+
+$(document).on('click', '.emoji-picks', function(e){
+    $('.user-message').val($('.user-message').val() +""+ $(this).text());
+    $('#myModal').modal('hide');
+});
+
 

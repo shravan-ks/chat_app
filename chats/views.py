@@ -1,19 +1,21 @@
 from datetime import timedelta
 
+from django.contrib.auth import get_user_model
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
-from online_users.models import OnlineUserActivity
 
 from chats.models import Chat
 
+User = get_user_model()
 def home(request):
     return render(request, 'index.html')
 
-from datetime import timedelta
 def chat(request):
     chats = Chat.objects.all()
+    all_users = User.objects.all()
     ctx = {
-        'chat': chats
+        'chat': chats,
+        'all_users':all_users,
     }
     if request.user.is_authenticated:
         return render(request, 'chat.html', ctx)

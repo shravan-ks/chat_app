@@ -1,16 +1,20 @@
+{% load static %}
+{% load humanize %}
 {% for obj in chat %}
     {% if obj.sender != request.user %}
       <li class="sent">
-        <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
+        <img src="{% static 'images/profile_pic3.png' %}" alt="" />
+        <span style="margin-left: 10px; font-size: 18px; color: darkblue">{{ obj.sender|capfirst }}</span><br>
         <p>{{ obj.message }}
-            <br><small style="float: right">{{ obj.timestamp }}</small>
+            <br><small style="float: right">{{ obj.timestamp|naturaltime }}</small>
         </p>
       </li>
     {% else %}
       <li class="replies">
-        <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+        <img src="{% static 'images/profile_pic.png' %}" alt="" />
+
         <p>{{ obj.message }}
-            <br><small style="float: right">{{ obj.timestamp }}</small>
+            <br><small style="float: right">{{ obj.timestamp|naturaltime }}</small>
         </p>
       </li>
     {% endif %}

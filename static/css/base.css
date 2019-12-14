@@ -1,0 +1,48 @@
+body {
+    background-color: #212a8c;
+    background-image: linear-gradient(225deg, #212a8c 0%, #01f6ba 100%);
+    height: 100vh;
+}
+.left-panel {
+    color: white;
+}
+.row {
+    margin: 0;
+}
+
+.btn-grad {
+    background-image: linear-gradient(to right, #1A2980 0%, #34e89e 51%, #1A2980 100%);
+     font-size: 22px;
+    transition: 0.5s;
+    background-size: 200% auto;
+    border: 0 !important;
+    color: white !important;
+    padding: 10px 40px 10px 40px;
+     border-radius: 60px;
+    outline: 0;
+    margin-right: 20px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+.btn-grad:hover { background-position: right center; box-shadow: 0 16px 32px 0 rgba(0,0,0,0.2);}
+
+.btn-grad-sign {
+background-image: linear-gradient(to right, #34e89e 0%, #212a8c 51%, #34e89e 100%);
+     font-size: 22px;
+    transition: 0.5s;
+    background-size: 200% auto;
+    border: 0 !important;
+    color: white !important;
+    padding: 10px 40px 10px 40px;
+     border-radius: 60px;
+     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+
+}
+.btn-grad-sign:hover { background-position: right center;box-shadow: 0 16px 32px 0 rgba(0,0,0,0.2); }
+
+.bg-light {
+    background-color: transparent!important;
+}
+.navbar-default {
+    border: 0;
+    color: white!important;
+}
