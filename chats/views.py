@@ -1,15 +1,15 @@
+from datetime import timedelta
+
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
+from online_users.models import OnlineUserActivity
+
 from chats.models import Chat
-
-
-def ui(request):
-    return render(request, 'ui.html')
 
 def home(request):
     return render(request, 'index.html')
 
-
+from datetime import timedelta
 def chat(request):
     chats = Chat.objects.all()
     ctx = {
@@ -19,6 +19,7 @@ def chat(request):
         return render(request, 'chat.html', ctx)
     else:
         return render(request, 'index.html', None)
+
 
 
 def post(request):
@@ -36,6 +37,4 @@ def post(request):
 def messages(request):
     chat = Chat.objects.all()
     return render(request, 'messages.html', {'chat': chat})
-
-
 

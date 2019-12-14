@@ -1,5 +1,3 @@
-{% load static %}
-    <link href="{% static 'css/styles.css'  %}" rel="stylesheet">
 {% for obj in chat %}
     {% if obj.sender != request.user %}
       <li class="sent">

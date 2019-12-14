@@ -3,6 +3,7 @@
 {% block title %}Chat
 {% endblock %}
 {% block content %}
+
   <div id="frame">
     <div id="sidepanel">
       <div id="profile">
@@ -76,14 +77,18 @@
         <div class="wrap">
             <form id="chat-form" method="POST" action="{% url 'post' %}">
                 {% csrf_token %}
+                <div class="emoji-suggestion-panel">
+                    <div class="emoji-suggestions" id="emoji-suggestions">
+                        <i> Emoji-Suggestions:</i>
+                        <span class="emoji">👋</span>
+                    </div>
+                </div>
                 <div class="input-group">
-                  <input  id="chat-msg" name="chat-msg"  class="search-form" type="text" placeholder="Write your message...">
-                  <div class="input-group-append">
-                    <a class="btn btn-light attach-btn" ><i class="fa fa-paperclip attachment" aria-hidden="true"></i></a>
-                    <button id="send" class="submit btn btn-default search-btn"   type="submit" value="Send">
+                  <input  id="chat-msg" name="chat-msg" onkeyup="emoji_suggest()" class="search-form  user-message" type="text" placeholder="Write your message...">
+{#                    <a class="btn btn-light attach-btn" ><i class="fa fa-paperclip attachment" aria-hidden="true"></i></a>#}
+                    <button id="send" class="submit btn btn-default search-btn"    type="submit" value="Send">
                       <i class="fa fa-paper-plane" aria-hidden="true"></i>
                     </button>
-                  </div>
                 </div>
             </form>
         </div>
