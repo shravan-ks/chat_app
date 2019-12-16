@@ -1,9 +1,10 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 
+# Get User model
 User = get_user_model()
 
-
+# Chats database
 class Chat(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE)
     message = models.TextField()

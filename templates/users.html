@@ -1,0 +1,35 @@
+{% load static %}
+{% for obj in users %}
+    {% if obj.user != user %}
+        <li class="contact onlines">
+            <div class="wrap">
+              <span class="contact-status online"></span>
+                    <img src="{% static 'images/profile_pic3.png' %}" alt="{{ obj.user|capfirst }}" />
+            <div class="meta">
+              <p class="name">{{ obj.user|capfirst }}</p>
+              <p class="preview">Online</p>
+              </div>
+            </div>
+        </li>
+    {% else %}
+        <div>
+            <p style="text-align: center">All Users</p>
+        </div>
+        {% for all_user in all_users %}
+            {% if all_user != user  %}
+                <li class="contact offlines">
+                    <div class="wrap">
+                      <span class="contact-status offline"></span>
+                            <img src="{% static 'images/profile_pic3.png' %}" alt="{{ obj.user|capfirst }}" />
+                    <div class="meta">
+                      <p class="name">{{ all_user|capfirst }}</p>
+                      <p class="preview"></p>
+                      </div>
+                    </div>
+                </li>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endfor %}
+
+

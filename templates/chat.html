@@ -4,7 +4,10 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Chat App</title>
+    <link rel="shortcut icon" type="image/png" href="https://chat-app.shravanks.com/static/images/chat_app_logo.png"/>
     <link rel="icon" type="image/png" href="{% static 'images/chat_app_logo.png' %}">
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,300' rel='stylesheet' type='text/css'>
     <script src="https://use.typekit.net/hoy3lrg.js"></script>
@@ -31,25 +34,12 @@
             </div>
           </div>
           <div style="text-align: center;padding: 15px 0 15px 0; background-color: #e6eaea;">
-            <p style="color:#212a8c; margin: 0;">Logged In Users</p>
+            <p style="color:#212a8c; margin: 0;">Online User</p>
           </div>
           <div id="contacts">
-            <ul>
-                {% for all_user in all_users %}
-                    {% if all_user != user %}
-                        <li class="contact">
-                            <div class="wrap">
-                              <span class="contact-status online"></span>
-                                    <img src="{% static 'images/profile_pic3.png' %}" alt="{{ all_user|capfirst }}" />
-                            <div class="meta">
-                              <p class="name">{{ all_user|capfirst }}</p>
-                              <p class="preview">Online</p>
-                              </div>
-                            </div>
-                        </li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
+              <ul id="users-lists">
+
+              </ul>
           </div>
         </div>
         <div class="content">
@@ -100,7 +90,7 @@
                       <input  id="chat-msg" name="chat-msg" onkeyup="emoji_suggest()" class="search-form  user-message " type="text" placeholder="Write your message...">
     {#                    <a class="btn btn-light attach-btn" ><i class="fa fa-paperclip attachment" aria-hidden="true"></i></a>#}
                         <button id="send" class="submit btn btn-default search-btn"    type="submit" value="Send">
-                          <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                          <i class="fa fa-paper-plane" ></i>
                         </button>
                     </div>
                 </form>
@@ -111,5 +101,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="{% static 'js/emojis.json' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
+    <script>
+
+
+
+    </script>
   </body>
 </html>

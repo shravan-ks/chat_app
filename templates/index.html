@@ -1,4 +1,8 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block head_title %}
+    Chat App
+{% endblock %}
 {% block content %}
     <nav class="navbar navbar-default bg-light">
       <div class="container">
@@ -26,13 +30,16 @@
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>
-    <div class="container">
-        <div class="col-lg-6 left-panel">
-            <h1>The best way to connect with your friends is with <br> <b>ChatWith!</b></h1>
+    <div class="container-fluid" style="margin-top: 5%;">
+        <div class="col-lg-4 left-panel" style="margin-top: 5%; padding-bottom: 50px;">
+            <h1 style="padding-bottom: 10px; line-height: 1.5;">The best way to connect with your friends is with <br> <b>Chat With!</b></h1>
             <div class="row">
                 <a class="btn btn-default btn-grad" href="{% url 'account_login' %}"><i class="fas fa-sign-in-alt"></i> &nbsp;Login</a>
                 <a class="btn btn-default btn-grad-sign" href="{% url 'account_signup' %}"><i class="fas fa-sign-out-alt"></i> &nbsp;Signup</a>
             </div>
+        </div>
+        <div class="col-lg-8">
+            <img class="img img-responsive" src="{% static 'images/cover.png' %}" alt="">
         </div>
     </div>
 {% endblock %}
