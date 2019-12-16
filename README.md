@@ -4,6 +4,7 @@ Checkout here https://chat-app.shravanks.com/
 
 * Key Features
   * Instant Messaging 
+  * Emoji detection / suggestions 
   * Realtime Online users display
   * User Auth
 
