@@ -2,109 +2,142 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Chat App</title>
     <link rel="shortcut icon" type="image/png" href="https://chat-app.shravanks.com/static/images/chat_app_logo.png"/>
-    <link rel="icon" type="image/png" href="{% static 'images/chat_app_logo.png' %}">
-    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,300' rel='stylesheet' type='text/css'>
-    <script src="https://use.typekit.net/hoy3lrg.js"></script>
-    <script>try{Typekit.load({ async: true });}catch(e){}</script>
-    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'>
-    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css'>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
     <link href="{% static 'css/styles.css'  %}" rel="stylesheet">
-
-  </head>
-  <body>
-    <div id="frame">
-        <div id="sidepanel">
-          <div id="profile">
-            <div class="wrap">
-                <img id="profile-img" src="{% static 'images/profile_pic.png' %}" class="online" alt="" />
-              <p>{{ user|capfirst }}</p>
-                <a style="float: right; color: white; margin-top: 4px;" href="{% url 'account_logout' %}"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Left panel -->
+            <!-- only for mobile -->
+            <div id="mySidenav" class="sidenav" style="z-index: 9999;">
+              <a href="javascript:void(0)" style="color: whitesmoke" class="closebtn" onclick="closeNav()">&times;</a>
+              <!-- Auth-user -->
+                <div class="sticky-top flex-grow-1 user-top">
+                    <img src="{% static 'images/profile_pic.png' %}" class="rounded-circle" width="65" alt="">
+                    <span><b>{{ user|capfirst }}</b></span>
+                    <a href="{% url 'account_logout' %}"><i class="fas fa-sign-out-alt"></i></a>
+                </div>
+                <!-- Other users -->
+                <div class="sticky-top flex-grow-1 online-user text-center">
+                    <p>Users</p>
+                </div>
+                <div class="online-user-scroll users-lists" id="users-lists">
+                </div>
             </div>
-          </div>
-          <div style="text-align: center;padding: 15px 0 15px 0; background-color: #e6eaea;">
-            <p style="color:#212a8c; margin: 0;">Online User</p>
-          </div>
-          <div id="contacts">
-              <ul id="users-lists">
-
-              </ul>
-          </div>
-        </div>
-        <div class="content">
-          <div class="contact-profile">
-            <img src="{% static 'images/chat_app_logo.png' %}" alt="" />
-            <p>Chat App</p>
-          </div>
-          <div  id="msg-list-div" class="messages">
-            <ul id="msg-list">
-                {% for obj in chat %}
-                    {% if obj.sender != request.user %}
-                      <li class="sent">
-                      <span>{{ obj.sender|capfirst }}</span><br>
-                        <img src="{% static 'images/profile_pic2.png' %}" alt="" />
-                        <p>{{ obj.message }}
-                            <br><small style="float: right">{{ obj.timestamp|naturaltime }}</small>
-                        </p>
-                      </li>
-                    {% else %}
-                      <li class="replies">
-                        <img src="{% static 'images/profile_pic.png' %}" alt="" />
-                        <p>{{ obj.message }}
-                            <br><small style="float: right">{{ obj.timestamp|naturaltime }}</small>
-                        </p>
-                      </li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
-          </div>
-          <div class="message-input">
-            <div class="wrap">
-                <form id="chat-form" method="POST" action="{% url 'post' %}">
-                    {% csrf_token %}
-                    <div class="emoji-suggestion-panel">
-                        <div class="emoji-suggestions" id="emoji-suggestions">
-                            <i> Emoji-Suggestions:</i>
-                            <span class="emoji">👋</span>
-                            <span class="emoji">😂</span>
-                            <span class="emoji">😀</span>
-                            <span class="emoji">😜</span>
-                            <span class="emoji">😛</span>
-                            <span class="emoji">😍</span>
-                            <span class="emoji">❤️</span>
-                            <span class="emoji">💻</span>
+            <!-- only for desktops -->
+            <div class="col-sm-2 col-2 px-1 bg-dark min-vh-100 sidepanel d-none d-sm-block">
+                <!-- Auth-user -->
+                <div class="sticky-top flex-grow-1 user-top">
+                    <img src="{% static 'images/profile_pic.png' %}" class="rounded-circle" width="65" alt="">
+                    <span><b>{{ user|capfirst }}</b></span>
+                    <a href="{% url 'account_logout' %}"><i class="fas fa-sign-out-alt"></i></a>
+                </div>
+                <!-- Other users -->
+                <div class="sticky-top flex-grow-1 online-user text-center">
+                    <p>Users</p>
+                </div>
+                <div class="online-user-scroll users-lists" id="users-lists">
+                </div>
+            </div>
+            <!-- Right Panel -->
+            <div class="col chat-area" id="main" style="padding: 0; height: 100vh;">
+                <!-- Nav -->
+                <nav class="navbar navbar-light bg-light sticky-top d-block d-xl-none d-block d-xl-block d-block">
+                    <span class="span-ham" onclick="openNav()">&#9776;</span>
+                    <a class="navbar-brand" href="/">
+                      <img src="{% static 'images/chat_app_logo.png' %}" width="30" height="30"
+                      class="d-inline-block align-top rounded-circle" alt="">
+                      Chat App
+                    </a>
+                </nav>
+                <!-- Chat area  -->
+                <div class="row message-list-row messages" id="msg-list-div">
+                    <ul class="list-group" id="msg-list" style="width: 100%">
+                        {% for obj in chat %}
+                            {% if obj.sender != request.user %}
+                              <li class="list-group-item">
+                                <div class="media message-left">
+                                    <img src="{% static 'images/profile_pic3.png' %}" width="42" class="rounded-circle align-self-start mr-3" alt="...">
+                                    <div class="media-body message-body-left">
+                                        <h5 class="mt-0">{{ obj.sender|capfirst }}</h5>
+                                        <p style="font-size: 18px;">{{ obj.message }}
+                                            <br><small style="float: right;margin-top: 4px;font-size:70%;">{{ obj.timestamp }}</small>
+                                        </p>
+                                    </div>
+                                </div>
+                              </li>
+                            {% else %}
+                              <li class="list-group-item">
+                                <div class="media message-right">
+                                    <div class="media-body message-body-right">
+                                        <p style="font-size: 18px;">{{ obj.message }}
+                                            <br><small style="float: right;margin-top: 4px;font-size:70%;">{{ obj.timestamp }}</small>
+                                        </p>
+                                    </div>
+                                    <img class="ml-3 rounded-circle" src="{% static 'images/profile_pic.png' %}" width="42"  alt="Generic placeholder image">
+                                </div>
+                              </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+                <!-- User Inputs and Emoji row -->
+                <div class="row message-input-row" >
+                    <form id="chat-form" method="POST" action="{% url 'post' %}" style="width: 100%;">
+                        <!-- Emoji Suggestion panel -->
+                        <div class="emoji-suggestion-panel">
+                            <div class="emoji-suggestions" id="emoji-suggestions">
+                                <i> Emoji-Suggestions:</i>
+                                <span class="emoji">👋</span>
+                                <span class="emoji">😂</span>
+                                <span class="emoji">😜</span>
+                                <span class="emoji">❤️</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="input-group">
-                      <input  id="chat-msg" name="chat-msg" onkeyup="emoji_suggest()" class="search-form  user-message " type="text" placeholder="Write your message...">
-    {#                    <a class="btn btn-light attach-btn" ><i class="fa fa-paperclip attachment" aria-hidden="true"></i></a>#}
-                        <button id="send" class="submit btn btn-default search-btn"    type="submit" value="Send">
-                          <i class="fa fa-paper-plane" ></i>
-                        </button>
-                    </div>
-                </form>
+                        <!-- Bottom Inputs -->
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" onclick="emoji_picker()" data-toggle="modal" data-target="#myModal">😀</button>
+                            </span>
+                            <input  id="chat-msg"  name="chat-msg" onkeyup="emoji_suggest()" class="search-form  user-message form-control" type="text" placeholder="Write your message...">
+{#                            <a class="btn btn-light attach-btn" ><i class="fa fa-paperclip attachment" aria-hidden="true"></i></a>#}
+                            <button id="send" class="btn btn-primary submit search-btn" type="submit" value="Send">
+                              <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        <!-- Emoji Picker Modal -->
+                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLongTitle">Emoji Picker <small>(Restrcited to 300 emoji's for demostration)</small></h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body" id="modal-body">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                    </form>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" ></script>
     <script src="{% static 'js/emojis.json' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
-    <script>
-
-
-
-    </script>
-  </body>
+</body>
 </html>

@@ -1,34 +1,19 @@
 {% load static %}
 {% for obj in users %}
-    {% if obj.user != user %}
-        <li class="contact onlines">
-            <div class="wrap">
-              <span class="contact-status online"></span>
-                    <img src="{% static 'images/profile_pic3.png' %}" alt="{{ obj.user|capfirst }}" />
-            <div class="meta">
-              <p class="name">{{ obj.user|capfirst }}</p>
-              <p class="preview">Online</p>
-              </div>
-            </div>
-        </li>
-    {% else %}
-        <div>
-            <p style="text-align: center">All Users</p>
+    {% if obj.user %}
+        <div class="sticky-top flex-grow-1 online-user-list">
+            <img src="https://chat-app.shravanks.com/static/images/profile_pic3.png" class="rounded-circle" width="50" alt="">
+            <span>{{ obj.user|capfirst }}</span>
+            <i class="fas fa-dot-circle"></i>
         </div>
-        {% for all_user in all_users %}
-            {% if all_user != user  %}
-                <li class="contact offlines">
-                    <div class="wrap">
-                      <span class="contact-status offline"></span>
-                            <img src="{% static 'images/profile_pic3.png' %}" alt="{{ obj.user|capfirst }}" />
-                    <div class="meta">
-                      <p class="name">{{ all_user|capfirst }}</p>
-                      <p class="preview"></p>
-                      </div>
-                    </div>
-                </li>
-            {% endif %}
-        {% endfor %}
+    {% endif %}
+{% endfor %}
+{% for all_user in all_users %}
+    {% if all_user != user  %}
+        <div class="sticky-top flex-grow-1 online-user-list">
+            <img src="https://chat-app.shravanks.com/static/images/profile_pic3.png" class="rounded-circle" width="50" alt="">
+            <span>{{ all_user|capfirst }}</span>
+        </div>
     {% endif %}
 {% endfor %}
 

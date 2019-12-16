@@ -2,20 +2,25 @@
 {% load humanize %}
 {% for obj in chat %}
     {% if obj.sender != request.user %}
-      <li class="sent">
-        <img src="{% static 'images/profile_pic3.png' %}" alt="" />
-        <span style="margin-left: 10px; font-size: 18px; color: darkblue">{{ obj.sender|capfirst }}</span><br>
-        <p>{{ obj.message }}
-            <br><small style="float: right">{{ obj.timestamp|naturaltime }}</small>
-        </p>
+      <li class="list-group-item">
+        <div class="media message-left">
+            <img src="{% static 'images/profile_pic3.png' %}" width="42" class="rounded-circle align-self-start mr-3" alt="...">
+            <div class="media-body message-body-left">
+                <h5 class="mt-0">{{ obj.sender|capfirst }}</h5>
+                <p style="font-size: 18px;">{{ obj.message }} <br> <small style="float: right;margin-top: 4px;font-size: 70%;">{{ obj.timestamp }}</small></p>
+            </div>
+        </div>
       </li>
     {% else %}
-      <li class="replies">
-        <img src="{% static 'images/profile_pic.png' %}" alt="" />
-
-        <p>{{ obj.message }}
-            <br><small style="float: right">{{ obj.timestamp|naturaltime }}</small>
-        </p>
+      <li class="list-group-item">
+        <div class="media message-right">
+            <div class="media-body message-body-right">
+                <p style="font-size: 18px;">{{ obj.message }}
+                    <br><small style="float: right;margin-top: 4px;font-size: 70%;">{{ obj.timestamp }}</small>
+                </p>
+            </div>
+            <img class="ml-3 rounded-circle" src="{% static 'images/profile_pic.png' %}" width="42"  alt="Generic placeholder image">
+        </div>
       </li>
     {% endif %}
 {% endfor %}

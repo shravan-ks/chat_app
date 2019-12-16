@@ -14,37 +14,25 @@ $('#chat-form').on('submit', function(event){
         success : function(json){
             $('#chat-msg').val('');
             $('#msg-list').append('<li class="replies"><p>' + json.msg + '</p></li>');
-            var chatlist = document.getElementById('msg-list-div');
-            chatlist.scrollTop = chatlist.scrollHeight;
+            $("#msg-list-div").animate({ scrollTop: $('#msg-list-div').prop("scrollHeight")}, 1000);
         }
     });
 });
 
 // GET Messages
 function getMessages(){
-        $.get('/messages/', function(messages){
-            $('#msg-list').html(messages);
-        });
-
-}
-$(function(){
-    $('#msg-list-div').on(function(){
-        // $("#msg-list-div").animate({ scrollTop: $('#msg-list-div').prop("scroll")}, 2000);
-    $('#msg-list-div').animate({
-        scrollTop: $('#msg-list-div')[0].scrollHeight}, 2000);
+    $.get('/messages/', function(messages){
+        $('#msg-list').html(messages);
     });
-
-    refreshTimer = setInterval(getMessages, 500);
-
-
-});
+}
+refreshTimer = setInterval(getMessages, 500);
 
 //GET Online User
 refreshUsers = setInterval(getUsers, 5000);
 function getUsers(){
     $.get('/users/', function(data){
-        $('#users-lists').html(data);
-        $('#users-lists').prepend($(".onlines"));
+        $('.users-lists').html(data);
+        $('.users-lists').prepend($(".onlines"));
     });
 }
 
@@ -82,18 +70,14 @@ $.ajaxSetup({
 // Emoji sugesstion
 function emoji_suggest() {
     $(".emoji").remove();
-    var y = $('#chat-msg').val().toLowerCase();
-    var array = y.split(" ",);
+    var input_val = $('#chat-msg').val().toLowerCase();
+    var array = input_val.split(" ",);
     $.getJSON("/static/js/emojis.json", function(json) {
         get_emoji(json, array)
     });
   }
 
 function get_emoji(data, texts){
-    if (data === null) {
-        return null;
-    }
-    else{
         Object.values(data).forEach(element => {
             Object.values(element.keywords).forEach(elements => {
                 Object.values(texts).forEach(ele => {
@@ -103,8 +87,7 @@ function get_emoji(data, texts){
                 })
 
             });
-        });
-    }
+        })
 
 }
 
@@ -122,29 +105,39 @@ $(document).on('click', '.emoji', function(e){
 });
 
 
-// TODO
-//Emoji Picker !!
-// function emoji_picker(){
-//     $(".emoji-picks").remove();
-//     $.getJSON("/static/js/emojis.json", function(json) {
-//         show_emoji(json)
-//     });
-// }
-//
-//
-//
-// function show_emoji(data){
-//     Object.values(data).slice(0,500).forEach(element => {
-//         const root = document.getElementById('modal-body');
-//         var h = document.createElement("span");
-//         h.className = 'emoji-picks'
-//         var t = document.createTextNode(element.char);
-//         h.appendChild(t);
-//         root.appendChild(h);
-//         });
-// }
-//
-// $(document).on('click', '.emoji-picks', function(e){
-//     $('.user-message').val($('.user-message').val() +""+ $(this).text());
-//     $('#myModal').modal('hide');
-// });
+
+// Emoji Picker !!
+function emoji_picker(){
+    $(".emoji-picks").remove();
+    $.getJSON("/static/js/emojis.json", function(json) {
+        show_emoji(json)
+    });
+}
+
+
+
+function show_emoji(data){
+    Object.values(data).slice(0,300).forEach(element => {
+        const root = document.getElementById('modal-body');
+        var h = document.createElement("span");
+        h.className = 'emoji-picks'
+        var t = document.createTextNode(element.char);
+        h.appendChild(t);
+        root.appendChild(h);
+        });
+}
+
+$(document).on('click', '.emoji-picks', function(e){
+    $('.user-message').val($('.user-message').val() +""+ $(this).text());
+    console.log(this)
+    $('#myModal').modal('hide')
+});
+
+
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+}
